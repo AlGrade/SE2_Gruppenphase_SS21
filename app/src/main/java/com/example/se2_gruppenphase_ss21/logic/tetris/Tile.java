@@ -155,8 +155,7 @@ public class Tile {
         }
 
         // add new placement
-        boolean added = addTileToMap(posOnMap);
-        return added;
+        return addTileToMap(posOnMap);
     }
 
     /**
