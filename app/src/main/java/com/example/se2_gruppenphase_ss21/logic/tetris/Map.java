@@ -116,18 +116,34 @@ public class Map {
     }
 
     /**
-     * Checks if a specified box on the map is available for placement.
+     * Checks if a specified BOX on the map is available for placement.
      * @param x x-coordinate of the box
      * @param y y-coordinate of the box
      * @return true if available - false if not
      */
     boolean checkAvailable(int x, int y) {
-        // coordinate outside of map
+        // coordinates outside of map
         if(y >= boxMap.length || x >= boxMap[0].length || y < 0 || x < 0)
             return false;
 
         Box box = boxMap[y][x];
         return box.isAvailable();
+    }
+
+    /**
+     * Checks if the specified BOX is available for temporary placement.
+     * Temporary placement is used to position the TILE. The TILE will not be attached.
+     * @param x x-coordinate to check
+     * @param y y-coordinate to check
+     * @return true if available for temporary placement, otherwise false
+     */
+    boolean checkAvailableTemp(int x, int y) {
+        // coordinates outside of map
+        if(y >= boxMap.length || x >= boxMap[0].length || y < 0 || x < 0)
+            return false;
+
+        Box box = boxMap[y][x];
+        return !box.isCoveredByTile();
     }
 
     /**
@@ -138,7 +154,7 @@ public class Map {
         tiles.add(tile);
     }
 
-    public Tile[] getTile() {
+    public Tile[] getTiles() {
         Tile[] t = new Tile[tiles.size()];
         tiles.toArray(t);
         return t;

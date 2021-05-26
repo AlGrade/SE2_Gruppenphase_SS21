@@ -94,6 +94,15 @@ public class MapAndTileTests {
 
         System.out.println("Does this work? "+collide.attachToMap(map, new Position(1,0)));
         displayMap(map);
+        System.out.println(map.checkSolved());
+
+        Tile temp = new Tile(new Position(0,0), new Position(0,1), new Position(0,2));
+        System.out.println("added: "+temp.placeOnMap(map, new Position(3,1)));
+        displayMap(map);
+        System.out.println(map.checkSolved());
+        System.out.println("moved: "+temp.moveDown());
+        displayMap(map);
+        System.out.println(map.checkSolved());
 
         for (Position pos : tile.getShape()) {
             System.out.print(pos.x + ", ");

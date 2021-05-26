@@ -2,6 +2,7 @@ package com.example.se2_gruppenphase_ss21.logic.tetris;
 
 import android.content.res.AssetManager;
 import android.graphics.Color;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -122,15 +123,55 @@ public class Tile {
      * @return true if successful - false if not
      */
     public boolean attachToMap(Map map, Position posOnMap) {
-        // absolute reference point of map
-        hook = posOnMap;
         this.map = map;
-        // check if tile is allowed to be placed -> return false if not
-        if(!checkPlaceable())
+        // check if tile is allowed to be placed at posOnMap
+        if(!checkPlaceable(posOnMap))
             return false;
-
+        // place tile on the map at posOnMap
+        boolean added = addTileToMap(posOnMap);
         // register tile on map
         map.addTile(this);
+        // tell the tile, it is attached (it is attached, even if added is false)
+        isAttached = true;
+        return added;
+    }
+
+    /**
+     * Places the TILE on the MAP WITHOUT attaching it!
+     * This is just for positioning purposes.
+     *
+     * @param map the map to place the TILE on.
+     * @param posOnMap the point where to place it on the MAP.
+     * @return true if successful, otherwise false.
+     */
+    public boolean placeOnMap(Map map, Position posOnMap) {
+        this.map = map;
+        // remove the current placement
+        removeTileFromMap();
+        if(!checkPlaceableTemp(posOnMap)) {
+            // restore old position
+            addTileToMap(hook);
+            return false;
+        }
+
+        // add new placement
+        boolean added = addTileToMap(posOnMap);
+        return added;
+    }
+
+    /**
+     * Adds a TILE to the MAP without attaching it.
+     * isAttached() will therefore return false.
+     * @param posOnMap
+     */
+    private boolean addTileToMap(Position posOnMap) {
+        // this is only relevant to temporary placements
+        if(isAttached) {
+            Log.e("tile", "Tile needs to be detached before placing!");
+            return false;
+        }
+
+        hook = posOnMap;
         // place tile on the map at posOnMap
         for(int i=0; i < shape.size(); i++) {
             int x = hook.x + shape.get(i).x;
@@ -138,8 +179,6 @@ public class Tile {
             map.coverBox(this, x, y);
         }
 
-        // tell the tile, it is attached
-        isAttached = true;
         return true;
     }
 
@@ -147,13 +186,10 @@ public class Tile {
      * Detaches this tile from the map.
      */
     public void detachFromMap() {
-        if(hook == null || !isAttached)
+        if(!isAttached)
             return;
-        for(int i=0; i < shape.size(); i++) {
-            int x = hook.x + shape.get(i).x;
-            int y = hook.y + shape.get(i).y;
-            map.clearBox(x, y);
-        }
+
+        removeTileFromMap();
 
         this.map.removeTile(this);
         this.map = null;
@@ -161,30 +197,106 @@ public class Tile {
     }
 
     /**
-     * Checks if tile can be placed on associated map considering this tiles map-hook.
-     * @return true if it can be placed - false if not
+     * Removes the TILE from the map on current POSITION (hook).
      */
-    public boolean checkPlaceable() {
-        return checkPlaceable(hook);
+    public void removeTileFromMap() {
+        if(hook == null)
+            return;
+
+        for(int i=0; i < shape.size(); i++) {
+            int x = hook.x + shape.get(i).x;
+            int y = hook.y + shape.get(i).y;
+            map.clearBox(x, y);
+        }
     }
 
     /**
      * Checks if tile can be placed on associated map considering a custom hook point as parameter.
-     * @param offset hook point
+     * @param posOnMap hook point
      * @return true if it can be placed - false if not
      */
-    public boolean checkPlaceable(Position offset) {
+    public boolean checkPlaceable(Position posOnMap) {
         if(map == null)
             return false;
 
         for(Position pos : shape) {
-            int x = offset.x + pos.x;
-            int y = offset.y + pos.y;
+            int x = posOnMap.x + pos.x;
+            int y = posOnMap.y + pos.y;
             if(!map.checkAvailable(x,y))
                 return false;
         }
 
         return true;
+    }
+
+    /**
+     * Checks if tile can be placed temporarily (not attaching) on associated map.
+     * NOTE: this check is just for positioning - not attaching!!
+     * For checking to attach, use checkPlaceable()
+     *
+     * @param posOnMap hook point
+     * @return true if it can be placed - false if not
+     */
+    public boolean checkPlaceableTemp(Position posOnMap) {
+        if(map == null)
+            return false;
+
+        for(Position pos : shape) {
+            int x = posOnMap.x + pos.x;
+            int y = posOnMap.y + pos.y;
+            if(!map.checkAvailableTemp(x,y))
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Moves the current temporary position of the TILE on the MAP upwards by one unit.
+     * @return true if it could be placed on new position, otherwise false.
+     */
+    public boolean moveUp() {
+        Position posOnMap = new Position(hook.x, hook.y - 1);
+        boolean success = placeOnMap(map, posOnMap);
+        if(success)
+            hook = posOnMap;
+        return success;
+    }
+
+    /**
+     * Moves the current temporary position of the TILE on the MAP down by one unit.
+     * @return true if it could be placed on new position, otherwise false.
+     */
+    public boolean moveDown() {
+        Position posOnMap = new Position(hook.x, hook.y + 1);
+        boolean success = placeOnMap(map, posOnMap);
+        if(success)
+            hook = posOnMap;
+        return success;
+    }
+
+    /**
+     * Moves the current temporary position of the TILE on the MAP right by one unit.
+     * @return true if it could be placed on new position, otherwise false.
+     */
+    public boolean moveRight() {
+        Position posOnMap = new Position(hook.x + 1, hook.y);
+        boolean success = placeOnMap(map, posOnMap);
+        if(success)
+            hook = posOnMap;
+        return success;
+    }
+
+    /**
+     * Moves the current temporary position of the TILE on the MAP left by one unit.
+     * @return true if it could be placed on new position, otherwise false.
+     */
+    public boolean moveLeft() {
+        Position posOnMap = new Position(hook.x - 1, hook.y);
+        boolean success = placeOnMap(map, posOnMap);
+        if(success)
+            hook = posOnMap;
+        return success;
     }
 
     /**

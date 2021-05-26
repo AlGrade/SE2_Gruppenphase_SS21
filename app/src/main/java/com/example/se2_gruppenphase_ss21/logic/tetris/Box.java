@@ -38,7 +38,7 @@ public class Box extends Position {
      * @return if BOX is available true, otherwise false.
      */
     public boolean isAvailable() {
-        return tile == null && isField;
+        return (!isCoveredByTile() || !tile.isAttached()) && isField;
     }
 
     /**
