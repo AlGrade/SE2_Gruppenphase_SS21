@@ -10,7 +10,7 @@ import java.util.*;
 public class GameRoom {
     private static final int DEFAULT_MAX_USERS = 4;
     private static final int ROUND_COUNT = 5;
-    private static final int PUZZLE_DURATION = 2 * 60 * 1000;
+    private static final int PUZZLE_DURATION = 60 * 1000;
     private static final int WAIT_FOR_ACTIVITY = 2;
 
     private ArrayList<GameClientHandler> handlers = new ArrayList<>();
