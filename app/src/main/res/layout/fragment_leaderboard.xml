@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/menu_activity_background2"
+    android:keepScreenOn="true"
     tools:context=".menu.LeaderboardFragment">
 
     <com.example.se2_gruppenphase_ss21.game.TimerView

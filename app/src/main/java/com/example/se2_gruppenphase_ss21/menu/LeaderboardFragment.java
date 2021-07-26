@@ -220,7 +220,7 @@ public class LeaderboardFragment extends Fragment implements PostRoundListener, 
             newPlayerslist.add(new PlayerPlacement(i, name.getText().toString(), Integer.parseInt(String.valueOf(points.getText()).split(" ",2)[0])));
         }
 
-        Collections.sort(newPlayerslist, (o1, o2) -> o1.getPlacement() - o2.getPoints());
+        Collections.sort(newPlayerslist, (o1, o2) -> o1.getPoints() - o2.getPoints());
 
         PlayerArrayAdapter newplayarray = new PlayerArrayAdapter(view.getContext(), R.layout.listview_row_layout);
         playerList = readData(newPlayerslist);
