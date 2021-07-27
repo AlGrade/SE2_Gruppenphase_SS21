@@ -5,12 +5,14 @@ import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.widget.TableLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -33,13 +35,6 @@ import java.util.Random;
 public class Dice extends Fragment implements PreRoundListener {
 
     private GameClient client;
-
-    private static final int ANTILOPE_POS = 325;
-    private static final int LION_POS = 775;
-    private static final int ELEPHANT_POS = 1225;
-    private static final int BUG_POS = 1675;
-    private static final int HAND_POS = 2125;
-    private static final int SNAKE_POS = 2575;
 
     private static final int ANTILOPE_ID = 1;
     private static final int LION_ID = 2;
@@ -67,8 +62,8 @@ public class Dice extends Fragment implements PreRoundListener {
         return view;
     }
 
-    private void animateDiceRoll(int diceResultPos) {
-        TableLayout frame = getView().findViewById(R.id.frame_roll);
+    private void animateDiceRoll() {
+        LinearLayout frame = getView().findViewById(R.id.frame_roll);
         float distance = frame.getWidth();
         String animationType = "translationX";
 
@@ -80,38 +75,39 @@ public class Dice extends Fragment implements PreRoundListener {
         reset.setInterpolator(new LinearInterpolator());
         reset.setDuration(0);
 
-        float target = convertDpToPixels(diceResultPos);
+        float target = calculateTargetPos(frame);
         ObjectAnimator stop = ObjectAnimator.ofFloat(frame, animationType, target);
         stop.setInterpolator(new DecelerateInterpolator());
         stop.setDuration(animationTime/2);
 
         AnimatorSet animation = new AnimatorSet();
         animation.playSequentially(rollAnimation, reset, stop);
+
         animation.start();
     }
 
-    private float convertDpToPixels(float dp) {
-        return dp * getContext().getResources().getDisplayMetrics().density;
+    private float calculateTargetPos(View frame) {
+        View target = getDiceResultView();
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        return frame.getWidth() - target.getRight() + target.getWidth() / 2 - width / 2;
     }
 
-    private float convertPixelsToDp(float pixels) {
-        return pixels / getContext().getResources().getDisplayMetrics().density;
-    }
-
-    private int getDiceResultPos() {
+    private View getDiceResultView() {
         switch(diceResultID) {
             case(ANTILOPE_ID):
-                return ANTILOPE_POS;
+                return getView().findViewById(R.id.antilope);
             case(LION_ID):
-                return LION_POS;
+                return getView().findViewById(R.id.lion);
             case(ELEPHANT_ID):
-                return ELEPHANT_POS;
+                return getView().findViewById(R.id.elephant);
             case(BUG_ID):
-                return BUG_POS;
+                return getView().findViewById(R.id.bug);
             case(HAND_ID):
-                return HAND_POS;
+                return getView().findViewById(R.id.hand);
             default:
-                return SNAKE_POS;
+                return getView().findViewById(R.id.snake);
         }
     }
 
@@ -135,9 +131,8 @@ public class Dice extends Fragment implements PreRoundListener {
     @Override
     public void playDiceAnimation(int result) {
         diceResultID = result;
-        int diceResultPos = getDiceResultPos();
         Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(() -> animateDiceRoll(diceResultPos), 500);
+        handler.postDelayed(() -> animateDiceRoll(), 500);
     }
 
     @Override
