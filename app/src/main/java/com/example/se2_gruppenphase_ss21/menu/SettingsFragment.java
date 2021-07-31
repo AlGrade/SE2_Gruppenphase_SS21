@@ -94,15 +94,14 @@ public class SettingsFragment extends Fragment {
         });
 
         Switch altPuzzleGUI = view.findViewById(R.id.switch_altGUI);
-        altPuzzleGUI.setChecked(myPreferences.getBoolean("altGUI", false));
+        altPuzzleGUI.setChecked(myPreferences.getBoolean("legacyGUI", false));
 
         altPuzzleGUI.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            myEditor.putBoolean("altGUI", isChecked);
+            myEditor.putBoolean("legacyGUI", isChecked);
             myEditor.apply();
         });
 
         view.findViewById(R.id.back).setOnClickListener(v -> {
-            Fragment menu = new MenuFragment();
             getParentFragmentManager()
                     .beginTransaction()
                     .replace(R.id.container, new MenuFragment())

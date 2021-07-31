@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/activity_menu.xml" value="0.20520833333333333" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/activity_welcome.xml" value="0.20520833333333333" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/fragment_create_room.xml" value="0.20520833333333333" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/fragment_join_room.xml" value="0.20520833333333333" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/fragment_leaderboard.xml" value="0.20520833333333333" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/fragment_local_game.xml" value="0.20520833333333333" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/fragment_menu.xml" value="0.20520833333333333" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/fragment_online_game.xml" value="0.20520833333333333" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/fragment_online_room.xml" value="0.20520833333333333" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/fragment_playfield.xml" value="0.20208333333333334" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/fragment_room.xml" value="0.20520833333333333" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/fragment_settings.xml" value="0.20520833333333333" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/fragment_start_game.xml" value="0.20520833333333333" />
+        <entry key="..\:/Eigene Dateien/Programmierung/Android/Ubongo/SE2_Gruppenphase_SS21_GruppeE/app/src/main/res/layout/listview_row_layout.xml" value="0.20520833333333333" />
+      </map>
+    </option>
+  </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>

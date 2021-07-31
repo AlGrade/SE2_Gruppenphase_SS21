@@ -84,7 +84,7 @@ public class RoomFragment extends Fragment {
 
         TextView roomNameTextView = view.findViewById(R.id.textView_roomName);
         if(roomNameTextView != null) {
-            roomNameTextView.setText(room.getName() + "\n\n current Players:");
+            roomNameTextView.setText(room.getName() + "\n\n "+getResources().getString(R.string.current_players));
         }
 
         String userName = getArguments().getString(ARG_PARAM1);
@@ -112,9 +112,9 @@ public class RoomFragment extends Fragment {
                 public void onGameStart() {
                     SharedPreferences prefs = getActivity()
                             .getSharedPreferences("prefs", Context.MODE_PRIVATE);
-                    boolean altGUI = prefs.getBoolean("altGUI", false);
+                    boolean legacyGUI = prefs.getBoolean("legacyGUI", false);
 
-                    Class toLoad = altGUI ? Puzzle.class : Dice.class;
+                    Class toLoad = legacyGUI ? Dice.class : Puzzle.class;
                     Intent intent = new Intent(getActivity(), toLoad);
                     startActivity(intent);
                 }

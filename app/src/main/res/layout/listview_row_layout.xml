@@ -36,8 +36,8 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="15dp"
         android:layout_toStartOf="@+id/points"
-        android:textColor="#FFFFFF"
-        android:text="challenge"/>
+        android:text="challenge"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/points"
@@ -51,7 +51,7 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:text="4 Punkte"
-        android:textSize="18sp"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
 
 </RelativeLayout>

@@ -125,9 +125,9 @@ public class LeaderboardFragment extends Fragment implements PostRoundListener, 
     public void transitionToDice() {
         SharedPreferences prefs = getActivity()
                 .getSharedPreferences("prefs", Context.MODE_PRIVATE);
-        boolean altGUI = prefs.getBoolean("altGUI", false);
+        boolean legacyGUI = prefs.getBoolean("legacyGUI", false);
 
-        Class toLoad = altGUI ? Puzzle.class : Dice.class;
+        Class toLoad = legacyGUI ? Dice.class : Puzzle.class;
         Intent intent = new Intent(getActivity(), toLoad);
         startActivity(intent);
     }

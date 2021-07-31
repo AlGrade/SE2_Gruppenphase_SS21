@@ -12,14 +12,23 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SE2_Gruppenphase_SS21">
+
         <activity android:name=".game.Tiles"
             android:theme="@style/Theme.SE2_Gruppenphase_SS21.NoActionBar"/>
         <activity android:name=".game.Dice"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".game.alternative_gui.Puzzle" />
-        <activity android:name=".menu.MenuActivity" />
-        <activity android:name=".menu.LeaderboardActivity"/>
-        <activity android:name=".menu.MainActivity">
+        <activity android:name=".game.alternative_gui.Puzzle"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".menu.MenuActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".menu.LeaderboardActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".menu.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
